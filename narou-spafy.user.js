@@ -1,0 +1,12 @@
+// ==UserScript==
+// @name         Narou SPAfy
+// @description  Narou SPAfy
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @author       pycabbage
+// @match        https://ncode.syosetu.com/n*/
+// @match        https://ncode.syosetu.com/n*/*
+// @icon         https://www.google.com/s2/favicons?domain=syosetu.com
+// @grant        none
+// ==/UserScript==
+function _toConsumableArray(a){if(Array.isArray(a)){for(var b=0,c=Array(a.length);b<a.length;b++)c[b]=a[b];return c}return Array.from(a)}var _move=function(a,b){console.log("move to ",a),fetch(a).then(function(a){return a.text()}).then(function(c){f=new DOMParser().parseFromString(c,"text/html"),fc=f.querySelector(b),dc=document.querySelector(b),dc.innerHTML=fc.innerHTML,history.pushState("","",a),convert_link()})},episode_to_episode=function(a){var b=1<arguments.length&&arguments[1]!==void 0?arguments[1]:"div#novel_contents div#novel_color";_e2e_uri=new URL(document.URL),_e2e_uri.pathname=_e2e_uri.pathname.replace(/\/\d+/,"/"+a),_move(_e2e_uri.pathname,b)},index_to_episode=function(a){_i2e_uri=new URL(document.URL),_i2e_uri.pathname+=a+"/",_move(_i2e_uri.pathname,selector="div#container")},episode_to_index=function(a){return _move("/"+a+"/","div#container")},index_to_index=function(a){return _move("/"+a+"/","div#container")},convert_link=function(){var a=0<arguments.length&&arguments[0]!==void 0?arguments[0]:"div#container a";[].concat(_toConsumableArray(document.querySelectorAll(a))).map(function(a){uri=new URL(document.URL);"#"===a.attributes.href.value[0]||(du=new URL(a.href),uri.origin===du.origin&&(du.pathname.match(/n.{6}\/\d+/)?a.addEventListener("click",function(b){b.stopPropagation(),b.preventDefault(),target=new URL(a.href).pathname.match(/\/(\d+)\//)[1],uri.pathname.match(/\/n.{6}\/$/)?(console.log("index_to_episode"),index_to_episode(+target)):(console.log("episode_to_episode"),episode_to_episode(+target))}):du.pathname.match(/n.{6}\/$/)&&a.addEventListener("click",function(b){b.stopPropagation(),b.preventDefault(),target=new URL(a.href).pathname.match(/(n.{6})\//)[1],uri.pathname.match(/\/n.{6}\/$/)?index_to_index(target):episode_to_index(target)})))})};(function(){convert_link()})();
