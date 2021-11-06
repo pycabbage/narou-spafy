@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "babel --config-file .babelrc src -d dist",
-    "dist": ""
+    "dist": "node dist.js",
+    "dist:compile": "npx babel --out-file .dist.js .dist_.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
